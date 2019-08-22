@@ -2,3 +2,6 @@ lets make EdDSA encryption program with kotlin
 
 paper URL:
 https://tools.ietf.org/html/rfc8032#section-3.1
+
+it appers that this encryption is too complicated for me,
+so I will just use some RSA with overkill keysize

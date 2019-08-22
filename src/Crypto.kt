@@ -2,7 +2,7 @@ import java.security.KeyPair
 import java.security.KeyPairGenerator
 import javax.crypto.Cipher
 
-class Crypto() {
+class Crypto {
     private val keys: KeyPair
     private val cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding")
 
