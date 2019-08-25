@@ -26,7 +26,7 @@ class Database {
 
     private fun post(url: String, json: String): JsonObject? {
         // init connection
-        var connection = URL(url)
+        val connection = URL(url)
             .openConnection() as HttpURLConnection
         connection.requestMethod = "POST"
         connection.doOutput = true
@@ -90,9 +90,4 @@ class Database {
         val embedded = json["_embedded"] as JsonObject
         return embedded["message"].asJsonArray
     }
-}
-
-fun main() {
-    val a = Database()
-    a.sendMessage("1", "2", "works")
 }

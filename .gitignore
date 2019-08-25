@@ -3,3 +3,4 @@ out/
 *.iml
 *.xml
 *.jar
+src/ui*
