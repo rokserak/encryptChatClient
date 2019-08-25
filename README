@@ -5,3 +5,6 @@ https://tools.ietf.org/html/rfc8032#section-3.1
 
 it appers that this encryption is too complicated for me,
 so I will just use some RSA with overkill keysize
+
+mongoDB in docker
+docker run -v $HOME/random_shit/mongodb-data:/data/db -p 27017:27017  mongo:latest
