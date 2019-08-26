@@ -1,6 +1,9 @@
 .idea/
 out/
+info/
 *.iml
 *.xml
 *.jar
 src/ui*
+src/LoginJ*
+src/SelectUI*

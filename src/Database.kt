@@ -7,12 +7,14 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class Database {
+    private val ip = "localhost:8080"
+
     fun createUser(name: String, publicKey: String): JsonObject? {
         val json = "{" +
                 "\"name\": \"$name\", " +
                 "\"publicKey\": \"$publicKey\"" +
                 "}"
-        return post("http://localhost:8080/user", json)
+        return post("http://$ip/user", json)
     }
 
     fun sendMessage(idFrom: String, idFor: String, message: String): JsonObject? {
@@ -21,7 +23,7 @@ class Database {
                 "\"idFor\": \"$idFor\"," +
                 "\"message\": \"$message\"" +
                 "}"
-        return post("http://localhost:8080/message/", json)
+        return post("http://$ip/message/", json)
     }
 
     private fun post(url: String, json: String): JsonObject? {
@@ -67,7 +69,7 @@ class Database {
 
     fun findUserByName(name: String): JsonObject {
         //request and response
-        val query = URL("http://localhost:8080/user/search/" +
+        val query = URL("http://$ip/user/search/" +
                 "findByName?name=$name")
             .readText(Charsets.UTF_8)
 
@@ -79,15 +81,25 @@ class Database {
 
     fun findMessageByIdFromAndIdFor(idFrom: String, idFor: String): JsonArray {
         // request and response
-        val query = URL("http://localhost:8080/message/search/" +
+        val query = URL("http://$ip/message/search/" +
                 "findByIdFromAndIdFor?idFrom=$idFrom&idFor=$idFor")
+            .readText(Charsets.UTF_8)
+
+        // getting array of messages from response
+        val json = JsonParser()
+            .parse(query)
+            .asJsonObject["_embedded"] as JsonObject
+
+        return json["message"].asJsonArray
+    }
+
+    fun getAllUsers(): JsonArray {
+        val query = URL("http://$ip/user")
             .readText(Charsets.UTF_8)
         val json = JsonParser()
             .parse(query)
-            .asJsonObject
+            .asJsonObject["_embedded"] as JsonObject
 
-        // getting array of messages from response
-        val embedded = json["_embedded"] as JsonObject
-        return embedded["message"].asJsonArray
+        return json["user"].asJsonArray
     }
 }

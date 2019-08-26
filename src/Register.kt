@@ -1,7 +1,6 @@
 import java.awt.Dimension
 import java.awt.Insets
 import javax.swing.*
-import kotlin.system.exitProcess
 
 class Register {
     private var frame = JFrame()
@@ -116,6 +115,9 @@ class Register {
                         crypto.keyToBase64(keys.public),
                         crypto.keyToBase64(keys.private)
                     )
+
+                    SelectFriend()
+                    frame.isVisible = false
                 } catch (e: Exception) {
                     checkLabel.text = "failed to create user"
                 }

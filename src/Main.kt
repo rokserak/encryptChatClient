@@ -1,5 +1,10 @@
-import javax.swing.JFrame
+import java.io.File
 
 fun main() {
-    Chat()
+    val file = File("info/user.xml")
+    if (file.length().toInt() == 0) {
+        Register()
+    } else {
+        SelectFriend()
+    }
 }
