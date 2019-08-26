@@ -5,82 +5,65 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-fun readXml() {
-    // open file for reading
-    val file = File("keys.xml")
-    val doc = DocumentBuilderFactory
-        .newInstance()
-        .newDocumentBuilder()
-        .parse(file)
-    doc.documentElement.normalize()
+class Xml {
+    fun readXml(filePath: String): List<String> {
+        // open file for reading
+        val file = File(filePath)
+        val doc = DocumentBuilderFactory
+            .newInstance()
+            .newDocumentBuilder()
+            .parse(file)
+        doc.documentElement.normalize()
 
-    val keys = doc.getElementsByTagName("keys")
-    for (i in 0 until keys.length) {
-        val key = keys.item(i) as Element
-
-        // get public key info
-        val pub = key.getElementsByTagName("public")
-            .item(0)
-        val pubOwner = pub.attributes
-            .getNamedItem("owner")
-            .nodeValue
-        val pubKey = pub.textContent
-
-        println("Public key:")
-        println("owner $pubOwner")
-        println("key $pubKey")
+        val keys = doc.getElementsByTagName("keys")
+        val key = keys.item(0) as Element
 
         // get private key info
-        val priv = key.getElementsByTagName("private")
+        val private = key.getElementsByTagName("private")
             .item(0)
-        val privOwner = priv.attributes
-            .getNamedItem("owner")
+        val user = private.attributes
+            .getNamedItem("user")
             .nodeValue
-        val privKey = pub.textContent
+        val privateKey = private.textContent
 
-        println("Private Key")
-        println("owner $privOwner")
-        println("key $privKey")
+        return listOf(user, privateKey)
     }
-}
 
-fun writeXml() {
-    // initialize new xml document
-    var doc = DocumentBuilderFactory
-        .newInstance()
-        .newDocumentBuilder()
-        .newDocument()
+    fun writeXml(filePath: String, name: String,
+                 public: String, private: String) {
+        // initialize new xml document
+        val doc = DocumentBuilderFactory
+            .newInstance()
+            .newDocumentBuilder()
+            .newDocument()
 
-    var keys = doc.createElement("keys")
-    doc.appendChild(keys)
+        val keys = doc.createElement("keys")
+        doc.appendChild(keys)
 
-    // public key info
-    var publicKey = doc.createElement("public")
-    publicKey.setAttribute("owner", "some id")
-    publicKey.appendChild(
-        doc.createTextNode("some key added later")
-    )
-    keys.appendChild(publicKey)
+        // public key info
+        val publicKey = doc.createElement("public")
+        publicKey.setAttribute("user", name)
+        publicKey.appendChild(
+            doc.createTextNode(public)
+        )
+        keys.appendChild(publicKey)
 
-    // private key info
-    var privateKey = doc.createElement("private")
-    privateKey.setAttribute("owner", "some id")
-    privateKey.appendChild(
-        doc.createTextNode("some key added later")
-    )
-    keys.appendChild(privateKey)
+        // private key info
+        val privateKey = doc.createElement("private")
+        privateKey.setAttribute("user", name)
+        privateKey.appendChild(
+            doc.createTextNode(private)
+        )
+        keys.appendChild(privateKey)
 
-    // write doc into file
-    val transformer = TransformerFactory
-        .newInstance()
-        .newTransformer()
-    val source = DOMSource(doc)
-    val file = StreamResult(
-        File("keys.xml")
-    )
-    transformer.transform(source, file)
-}
-
-fun main() {
-    writeXml()
+        // write doc into file
+        val transformer = TransformerFactory
+            .newInstance()
+            .newTransformer()
+        val source = DOMSource(doc)
+        val file = StreamResult(
+            File(filePath)
+        )
+        transformer.transform(source, file)
+    }
 }
