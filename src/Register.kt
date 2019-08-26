@@ -15,15 +15,13 @@ class Register {
     private val xml = Xml()
 
     init {
+        // GUI designer
         panel.layout = com.intellij.uiDesigner.core.GridLayoutManager(4, 1, Insets(0, 0, 0, 0), -1, -1)
         panel.preferredSize = Dimension(150, 150)
         panel.add(
             textField,
             com.intellij.uiDesigner.core.GridConstraints(
-                1,
-                0,
-                1,
-                1,
+                1, 0, 1, 1,
                 com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST,
                 com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL,
                 com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW,
@@ -38,10 +36,7 @@ class Register {
         panel.add(
             checkLabel,
             com.intellij.uiDesigner.core.GridConstraints(
-                2,
-                0,
-                1,
-                1,
+                2, 0, 1, 1,
                 com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST,
                 com.intellij.uiDesigner.core.GridConstraints.FILL_NONE,
                 com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED,
@@ -56,10 +51,7 @@ class Register {
         panel.add(
             username,
             com.intellij.uiDesigner.core.GridConstraints(
-                0,
-                0,
-                1,
-                1,
+                0, 0, 1, 1,
                 com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST,
                 com.intellij.uiDesigner.core.GridConstraints.FILL_NONE,
                 com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED,
@@ -74,10 +66,7 @@ class Register {
         panel.add(
             registerButton,
             com.intellij.uiDesigner.core.GridConstraints(
-                3,
-                0,
-                1,
-                1,
+                3, 0, 1, 1,
                 com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER,
                 com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL,
                 com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK or com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW,

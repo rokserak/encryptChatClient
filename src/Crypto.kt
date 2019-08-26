@@ -8,11 +8,11 @@ class Crypto {
     private val cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding")
     private val kf = KeyFactory.getInstance("RSA")
 
-    fun encrypt(text: String, publicKey: PublicKey): ByteArray {
+    fun encrypt(text: String, publicKey: PublicKey): String {
         cipher.init(Cipher.ENCRYPT_MODE, publicKey)
         val input = text.toByteArray(Charsets.UTF_8)
         cipher.update(input)
-        return cipher.doFinal()
+        return cipher.doFinal().toString(Charsets.UTF_8)
     }
 
     fun decrypt(data: ByteArray, privateKey: PrivateKey): String {

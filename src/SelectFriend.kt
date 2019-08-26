@@ -10,6 +10,7 @@ class SelectFriend {
     private var list = JList<String>()
 
     init {
+        // GUI designer
         panel.layout = com.intellij.uiDesigner.core.GridLayoutManager(
             2, 1,
             Insets(0, 0, 0, 0),
