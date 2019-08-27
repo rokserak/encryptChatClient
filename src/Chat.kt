@@ -1,13 +1,11 @@
 import java.awt.Dimension
 import java.awt.Insets
-import java.util.*
 import javax.swing.*
-import javax.swing.table.DefaultTableModel
 
 class Chat(friend: String) {
     private var frame = JFrame("Chat with $friend")
     private var panel = JPanel()
-    private var table = JTable()
+    private var list = JList<String>()
     private var textField = JTextField()
     private var sendButton = JButton("send")
 
@@ -33,7 +31,7 @@ class Chat(friend: String) {
         )
         panel.preferredSize = Dimension(250, 400)
         panel.add(
-            table,
+            list,
             com.intellij.uiDesigner.core.GridConstraints(
                 0, 0, 1, 2,
                 com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER,
@@ -85,7 +83,7 @@ class Chat(friend: String) {
         frame.pack()
         frame.isVisible = true
 
-        fillTable()
+        fillList()
 
         // action listeners
         sendButton.addActionListener {
@@ -99,27 +97,22 @@ class Chat(friend: String) {
             } catch (e: Exception) {}
 
             textField.text = ""
-            fillTable()
+            fillList()
         }
     }
 
-    private fun fillTable() {
-        val list = Vector<Vector<String>>()
+    private fun fillList() {
+        val chat = DefaultListModel<String>()
         val messages = db.findMessageByIdFromAndIdFor(friend, user)
         for (m in messages) {
-            val line = Vector<String>()
+            val line = m.asJsonObject["message"].asString
             val encrypted = m.asJsonObject["message"].toString()
-            line.add(crypto.decrypt(
-                encrypted.subSequence(1, encrypted.length - 1).toString()
-                , userPrivateKey)
+            chat.addElement(crypto.decrypt(
+                encrypted.subSequence(1, encrypted.length - 1).toString(),
+                userPrivateKey)
             )
-            list.add(line)
         }
-
-        val head = Vector<String>()
-        head.add("ola")
-
-        table.model = DefaultTableModel(list, head)
+        list.model = chat
     }
 
 }
