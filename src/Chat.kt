@@ -1,3 +1,4 @@
+import java.awt.Color
 import java.awt.Dimension
 import java.awt.Insets
 import javax.swing.*
@@ -26,9 +27,9 @@ class Chat(friend: String) {
     // thread to refresh chat in background
     private val thread = Thread {
         while (true) {
+            Thread.sleep(5000)
             val messages = db.findMessageByIdFromAndIdFor(user, friend)
             if (list.model.size != messages.size()) fillList()
-            Thread.sleep(5000)
         }
     }
 
@@ -95,6 +96,7 @@ class Chat(friend: String) {
         frame.pack()
         frame.isVisible = true
 
+        lookAndFeel()
         fillList()
 
         // action listeners
@@ -124,13 +126,19 @@ class Chat(friend: String) {
         val chat = DefaultListModel<String>()
         val messages = db.findMessageByIdFromAndIdFor(friend, user)
         for (m in messages) {
-            val encrypted = m.asJsonObject["message"].toString()
+            val encrypted = m.asJsonObject["message"].asString
             chat.addElement(crypto.decrypt(
-                encrypted.subSequence(1, encrypted.length - 1).toString(),
-                userPrivateKey)
+                encrypted, userPrivateKey)
             )
         }
         list.model = chat
     }
 
+    private fun lookAndFeel() {
+        list.background = Color(58, 191, 54)
+        panel.background = Color(58, 191, 54)
+        sendButton.background = Color(88, 22, 89)
+        sendButton.foreground = Color.WHITE
+        frame.foreground = Color(38, 37, 38)
+    }
 }
