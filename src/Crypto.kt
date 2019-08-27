@@ -12,12 +12,13 @@ class Crypto {
         cipher.init(Cipher.ENCRYPT_MODE, publicKey)
         val input = text.toByteArray(Charsets.UTF_8)
         cipher.update(input)
-        return cipher.doFinal().toString(Charsets.UTF_8)
+        return textToBase64(cipher.doFinal())
     }
 
-    fun decrypt(data: ByteArray, privateKey: PrivateKey): String {
+    fun decrypt(data: String, privateKey: PrivateKey): String {
         cipher.init(Cipher.DECRYPT_MODE, privateKey)
-        cipher.update(data)
+        val input = base64ToText(data)
+        cipher.update(input)
         return cipher.doFinal().toString(Charsets.UTF_8)
     }
 
@@ -44,5 +45,13 @@ class Crypto {
             Base64.getDecoder().decode(key)
         )
         return kf.generatePublic(keySpec)
+    }
+
+    private fun textToBase64(text: ByteArray): String {
+        return Base64.getEncoder().encodeToString(text)
+    }
+
+    private fun base64ToText(base: String): ByteArray {
+        return Base64.getDecoder().decode(base)
     }
 }
