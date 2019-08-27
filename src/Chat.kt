@@ -93,7 +93,6 @@ class Chat(friend: String) {
             if (message == "") return@addActionListener
 
             try {
-                println(crypto.encrypt(message, friendPublicKey))
                 db.sendMessage(user, friend,
                     crypto.encrypt(message, friendPublicKey)
                 )
@@ -106,7 +105,7 @@ class Chat(friend: String) {
 
     private fun fillTable() {
         val list = Vector<Vector<String>>()
-        val messages = db.findMessageByIdFromAndIdFor(user, friend)
+        val messages = db.findMessageByIdFromAndIdFor(friend, user)
         for (m in messages) {
             val line = Vector<String>()
             val encrypted = m.asJsonObject["message"].toString()
