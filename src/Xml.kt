@@ -18,6 +18,10 @@ class Xml {
         val keys = doc.getElementsByTagName("keys")
         val key = keys.item(0) as Element
 
+        // public key
+        val publicKey = key.getElementsByTagName("public")
+            .item(0).textContent
+
         // get private key info
         val private = key.getElementsByTagName("private")
             .item(0)
@@ -26,7 +30,7 @@ class Xml {
             .nodeValue
         val privateKey = private.textContent
 
-        return listOf(user, privateKey)
+        return listOf(user, publicKey, privateKey)
     }
 
     fun writeXml(filePath: String, name: String,

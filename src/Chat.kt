@@ -15,7 +15,8 @@ class Chat(friend: String) {
     // your info
     private val userData = Xml().readXml("info/user.xml")
     private val user = userData[0]
-    private val userPrivateKey = crypto.base64ToPrivateKey(userData[1])
+    private val userPublicKey = crypto.base64ToPublicKey(userData[1])
+    private val userPrivateKey = crypto.base64ToPrivateKey(userData[2])
     // friends info
     private val friend = friend
     private val friendPublicKey = crypto.base64ToPublicKey(
@@ -91,9 +92,16 @@ class Chat(friend: String) {
             if (message == "") return@addActionListener
 
             try {
-                db.sendMessage(user, friend,
-                    crypto.encrypt(message, friendPublicKey)
+                db.sendMessage(friend, user,
+                    crypto.encrypt("$user: $message", userPublicKey)
                 )
+                // save message twice so you can decrypt what you have send to others
+                // with you own private key
+                if (user != friend) {
+                    db.sendMessage(user, friend,
+                        crypto.encrypt("$user: $message", friendPublicKey)
+                    )
+                }
             } catch (e: Exception) {}
 
             textField.text = ""
