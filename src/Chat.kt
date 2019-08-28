@@ -1,7 +1,9 @@
+import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Insets
 import javax.swing.*
+import javax.swing.border.Border
 
 class Chat(friend: String) {
     private var frame = JFrame("Chat with $friend")

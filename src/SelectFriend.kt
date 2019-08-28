@@ -82,7 +82,6 @@ class SelectFriend {
         list.model = friends
     }
 
-
     private fun lookAndFeel() {
         list.background = Color(58, 191, 54)
         panel.background = Color(55, 140, 42)
