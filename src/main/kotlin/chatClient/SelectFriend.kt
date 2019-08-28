@@ -11,6 +11,7 @@ class SelectFriend {
     private var panel = JPanel()
     private val label = JLabel("Select your friend")
     private var list = JList<String>()
+    private var scrollPane = JScrollPane(list)
 
     init {
         // GUI designer
@@ -21,7 +22,7 @@ class SelectFriend {
         )
         panel.preferredSize = Dimension(250, 250)
         panel.add(
-            list,
+            scrollPane,
             com.intellij.uiDesigner.core.GridConstraints(
                 1, 0, 1, 1,
                 com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER,

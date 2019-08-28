@@ -9,6 +9,7 @@ class Chat(friend: String) {
     private var frame = JFrame("Chat with $friend")
     private var panel = JPanel()
     private var list = JList<String>()
+    private var scrollPane = JScrollPane(list)
     private var textField = JTextField()
     private var sendButton = JButton("send")
 
@@ -44,7 +45,7 @@ class Chat(friend: String) {
         )
         panel.preferredSize = Dimension(250, 400)
         panel.add(
-            list,
+            scrollPane,
             com.intellij.uiDesigner.core.GridConstraints(
                 0, 0, 1, 2,
                 com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER,
