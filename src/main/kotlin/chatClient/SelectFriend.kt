@@ -51,7 +51,6 @@ class SelectFriend {
             )
         )
 
-        lookAndFeel()
         fillList()
 
         list.addMouseListener(object : MouseAdapter() {
@@ -82,11 +81,5 @@ class SelectFriend {
             friends.addElement(name)
         }
         list.model = friends
-    }
-
-    private fun lookAndFeel() {
-        list.background = Color(58, 191, 54)
-        panel.background = Color(55, 140, 42)
-        frame.foreground = Color(38, 37, 38)
     }
 }

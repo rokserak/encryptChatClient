@@ -98,7 +98,6 @@ class Chat(friend: String) {
         frame.pack()
         frame.isVisible = true
 
-        lookAndFeel()
         fillList()
 
         // action listeners
@@ -134,13 +133,5 @@ class Chat(friend: String) {
             )
         }
         list.model = chat
-    }
-
-    private fun lookAndFeel() {
-        list.background = Color(58, 191, 54)
-        panel.background = Color(58, 191, 54)
-        sendButton.background = Color(88, 22, 89)
-        sendButton.foreground = Color.WHITE
-        frame.foreground = Color(38, 37, 38)
     }
 }

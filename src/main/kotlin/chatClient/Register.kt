@@ -116,11 +116,4 @@ class Register {
             }
         }
     }
-
-    private fun lookAndFeel() {
-        registerButton.background = Color(88, 22, 89)
-        registerButton.foreground = Color.WHITE
-        panel.background = Color(55, 140, 42)
-        frame.foreground = Color(38, 37, 38)
-    }
 }
