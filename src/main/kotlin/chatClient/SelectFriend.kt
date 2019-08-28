@@ -13,6 +13,16 @@ class SelectFriend {
     private var list = JList<String>()
     private var scrollPane = JScrollPane(list)
 
+    private val db = Database()
+    // thread to refresh chat in background
+    private val thread = Thread {
+        while (true) {
+            Thread.sleep(5000)
+            val users = db.getAllUsers()
+            if (list.model.size != users.size()) fillList()
+        }
+    }
+
     init {
         // GUI designer
         panel.layout = com.intellij.uiDesigner.core.GridLayoutManager(
@@ -52,6 +62,7 @@ class SelectFriend {
             )
         )
 
+        thread.start()
         fillList()
 
         list.addMouseListener(object : MouseAdapter() {
@@ -74,7 +85,7 @@ class SelectFriend {
     }
 
     private fun fillList() {
-        val jsonFriends = Database().getAllUsers()
+        val jsonFriends = db.getAllUsers()
         val friends = DefaultListModel<String>()
         for (friend in jsonFriends) {
             val name = friend.asJsonObject["name"].asString
