@@ -59,8 +59,7 @@ class SelectFriend {
                 val list = evt!!.source as JList<*>
                 if (evt.clickCount == 2) {
                     Chat(list.selectedValue as String)
-                    frame.isVisible = false
-
+                    //frame.isVisible = false
                 }
             }
         })

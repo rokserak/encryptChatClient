@@ -95,7 +95,7 @@ class Chat(friend: String) {
         // my code
         frame.minimumSize = Dimension(250,300)
         frame.add(panel)
-        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        //frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.pack()
         frame.isVisible = true
 
