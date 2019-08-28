@@ -1,9 +1,9 @@
-import java.awt.BorderLayout
+package chatClient
+
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Insets
 import javax.swing.*
-import javax.swing.border.Border
 
 class Chat(friend: String) {
     private var frame = JFrame("Chat with $friend")
@@ -16,7 +16,7 @@ class Chat(friend: String) {
     private var crypto = Crypto()
 
     // your info
-    private val userData = Xml().readXml("info/user.xml")
+    private val userData = Xml().readXml("user.xml")
     private val user = userData[0]
     private val userPublicKey = crypto.base64ToPublicKey(userData[1])
     private val userPrivateKey = crypto.base64ToPrivateKey(userData[2])

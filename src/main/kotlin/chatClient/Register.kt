@@ -1,3 +1,5 @@
+package chatClient
+
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Insets
@@ -101,7 +103,7 @@ class Register {
                     checkLabel.text =""
 
                     // save your data in local xml file
-                    xml.writeXml("info/user.xml", name,
+                    xml.writeXml("user.xml", name,
                         crypto.keyToBase64(keys.public),
                         crypto.keyToBase64(keys.private)
                     )

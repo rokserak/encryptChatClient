@@ -1,3 +1,5 @@
+package chatClient
+
 import org.w3c.dom.Element
 import java.io.File
 import javax.xml.parsers.DocumentBuilderFactory
